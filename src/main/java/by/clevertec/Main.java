@@ -40,7 +40,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        task3();
+        System.out.println(task5());
     }
 
     public static List<Animal> task1() {
@@ -72,17 +72,16 @@ public class Main {
                 .toList();
     }
 
-    //Подсчитать количество всех животных пола = Female. Вывести в консоль
     public static Long task4() {
         return animals.stream()
                 .filter(animal -> animal.getGender().equals("Female"))
                 .count();
-
     }
 
-    public static void task5() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+    public static boolean task5() {
+        return animals.stream()
+                .filter(animal -> animal.getAge()>=20 && animal.getAge() <=30)
+                .anyMatch(animal -> animal.getOrigin().equals("Hungarian"));
     }
 
     public static void task6() {
