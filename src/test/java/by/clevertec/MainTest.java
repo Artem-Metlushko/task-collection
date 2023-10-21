@@ -73,4 +73,16 @@ class MainTest {
         List<String> actual = Main.task3();
         assertEquals(expected, actual);
     }
+
+    @Test
+    void task4() {
+        int expected = 0;
+        for (Animal animal : animals) {
+            if (animal.getGender().equals("Female")) {
+                expected++;
+            }
+        }
+        Long actual = Main.task4();
+        assertEquals(expected, actual);
+    }
 }

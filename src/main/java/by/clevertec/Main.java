@@ -11,8 +11,11 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
 
 public class Main {
+    public static final List<Animal> animals = Util.getAnimals();
 
     public static void main(String[] args) {
 /*        task1();
@@ -41,7 +44,7 @@ public class Main {
     }
 
     public static List<Animal> task1() {
-        List<Animal> animals = Util.getAnimals();
+
         return animals.stream()
                 .filter(animal -> animal.getAge() >= 10 && animal.getAge() <= 20)
                 .sorted(Comparator.comparingInt(Animal::getAge))
@@ -51,7 +54,6 @@ public class Main {
     }
 
     public static List<String> task2() {
-        List<Animal> animals = Util.getAnimals();
         return animals.stream()
                 .filter(animal -> (animal.getOrigin()).equals("Japanese"))
                 .map(animal -> animal.getGender().equals("Female") ?
@@ -62,7 +64,6 @@ public class Main {
     }
 
     public static List<String> task3() {
-        List<Animal> animals = Util.getAnimals();
         return animals.stream()
                 .filter(animal -> animal.getAge() > 30)
                 .map(Animal::getOrigin)
@@ -71,9 +72,12 @@ public class Main {
                 .toList();
     }
 
-    public static void task4() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+    //Подсчитать количество всех животных пола = Female. Вывести в консоль
+    public static Long task4() {
+        return animals.stream()
+                .filter(animal -> animal.getGender().equals("Female"))
+                .count();
+
     }
 
     public static void task5() {
