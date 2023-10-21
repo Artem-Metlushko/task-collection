@@ -12,11 +12,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
-
+    public static final List<Animal> animals = Util.getAnimals();
 
     @Test
     void task1() {
-        List<Animal> animals = Util.getAnimals();
         List<Animal> filteredAnimals = new ArrayList<>();
         for (Animal animal : animals) {
             if (animal.getAge() >= 10 && animal.getAge() <= 20) {
@@ -41,6 +40,23 @@ class MainTest {
 
         assertEquals(expected, actual);
 
+    }
 
+    @Test
+    void task2() {
+        List<String> expected = new ArrayList<>();
+        for (Animal animal : animals) {
+            if (animal.getOrigin().equals("Japanese")) {
+                String bread = animal.getBread();
+                if (animal.getGender().equals("Female")) {
+                    bread = bread.toLowerCase();
+                } else {
+                    bread = bread.toUpperCase();
+                }
+                expected.add(bread);
+            }
+        }
+        List<String> actual = Main.task2();
+        assertEquals(expected, actual);
     }
 }

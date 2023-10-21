@@ -11,7 +11,6 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -38,16 +37,9 @@ public class Main {
         task20();
         task21();
         task22();*/
-        task1();
+        task2();
     }
-/*
-* ### Задача №1
-* из представленных животных отобрать все молодые особи от 10
-* до 20 лет и отсортировать по возрасту (по возрастанию)
-* далее - распределить по 7 на каждый зоопарк. Зоопарков
-* неограниченное кол-во а вы - директор 3-го по счёту зоопарка.
-* Полученных животных вывести в консоль.
-* */
+
     public static List<Animal> task1() {
         List<Animal> animals = Util.getAnimals();
         return animals.stream()
@@ -57,11 +49,23 @@ public class Main {
                 .limit(7)
                 .toList();
     }
-
-    public static void task2() {
+    public static List<String> task2() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        return animals.stream()
+                .filter(animal -> (animal.getOrigin()).equals("Japanese"))
+                .map(animal -> animal.getGender().equals("Female") ?
+                        animal.getBread().toLowerCase() :
+                        animal.getBread().toUpperCase())
+                .toList();
+
     }
+    /*
+    * .map(new Function<Animal, String>() {
+                    @Override
+                    public String apply(Animal animal) {
+                        return animal.getBread().toUpperCase();
+                    }
+                }*/
 
     public static void task3() {
         List<Animal> animals = Util.getAnimals();
