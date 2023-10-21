@@ -37,7 +37,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        task2();
+        task3();
     }
 
     public static List<Animal> task1() {
@@ -49,6 +49,7 @@ public class Main {
                 .limit(7)
                 .toList();
     }
+
     public static List<String> task2() {
         List<Animal> animals = Util.getAnimals();
         return animals.stream()
@@ -59,17 +60,15 @@ public class Main {
                 .toList();
 
     }
-    /*
-    * .map(new Function<Animal, String>() {
-                    @Override
-                    public String apply(Animal animal) {
-                        return animal.getBread().toUpperCase();
-                    }
-                }*/
 
-    public static void task3() {
+    public static List<String> task3() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        return animals.stream()
+                .filter(animal -> animal.getAge() > 30)
+                .map(Animal::getOrigin)
+                .filter(origin -> origin.startsWith("A"))
+                .distinct()
+                .toList();
     }
 
     public static void task4() {

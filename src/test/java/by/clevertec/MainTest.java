@@ -59,4 +59,18 @@ class MainTest {
         List<String> actual = Main.task2();
         assertEquals(expected, actual);
     }
+
+    @Test
+    void task3() {
+        List<String> expected = new ArrayList<>();
+        for (Animal animal : animals) {
+            if (animal.getAge() > 30 && animal.getOrigin().startsWith("A")
+                    && !expected.contains(animal.getOrigin())
+            ) {
+                expected.add(animal.getOrigin());
+            }
+        }
+        List<String> actual = Main.task3();
+        assertEquals(expected, actual);
+    }
 }
