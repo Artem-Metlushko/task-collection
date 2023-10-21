@@ -11,6 +11,7 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 public class Main {
     public static final List<Animal> animals = Util.getAnimals();
@@ -38,7 +39,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        task7();
+        task8();
     }
 
     public static List<Animal> task1() {
@@ -95,10 +96,16 @@ public class Main {
                 .max()
                 .orElse(-1);
     }
+//Взять всех животных. Преобразовать их в породы, а породы в []char
+//Вывести в консоль длину самого короткого массива
 
-    public static void task8() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+    public static int task8() {
+        return animals.stream()
+                .map(Animal::getBread)
+                .map(String::toCharArray)
+                .mapToInt(charArray -> charArray.length)
+                .min()
+                .orElse(-1);
     }
 
     public static void task9() {
