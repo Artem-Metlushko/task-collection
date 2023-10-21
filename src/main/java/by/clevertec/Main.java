@@ -11,8 +11,6 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.function.ToIntFunction;
 
 public class Main {
     public static final List<Animal> animals = Util.getAnimals();
@@ -40,7 +38,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        System.out.println(task6());
+        task7();
     }
 
     public static List<Animal> task1() {
@@ -89,9 +87,13 @@ public class Main {
                 .allMatch(animal -> animal.getGender().equals("Female") || animal.getGender().equals("Male"));
     }
 
-    public static void task7() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+    public static int task7() {
+        return animals.stream()
+                .sorted(Comparator.comparing(Animal::getBread))
+                .limit(100)
+                .mapToInt(Animal::getAge)
+                .max()
+                .orElse(-1);
     }
 
     public static void task8() {
