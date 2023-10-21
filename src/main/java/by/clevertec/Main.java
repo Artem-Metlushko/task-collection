@@ -40,7 +40,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        System.out.println(task5());
+        System.out.println(task6());
     }
 
     public static List<Animal> task1() {
@@ -84,9 +84,9 @@ public class Main {
                 .anyMatch(animal -> animal.getOrigin().equals("Hungarian"));
     }
 
-    public static void task6() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+    public static boolean task6() {
+        return animals.stream()
+                .allMatch(animal -> animal.getGender().equals("Female") || animal.getGender().equals("Male"));
     }
 
     public static void task7() {
