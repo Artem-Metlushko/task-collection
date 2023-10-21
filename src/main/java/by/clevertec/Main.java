@@ -11,7 +11,6 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 
 public class Main {
     public static final List<Animal> animals = Util.getAnimals();
@@ -39,11 +38,10 @@ public class Main {
         task20();
         task21();
         task22();*/
-        task8();
+        task9();
     }
 
     public static List<Animal> task1() {
-
         return animals.stream()
                 .filter(animal -> animal.getAge() >= 10 && animal.getAge() <= 20)
                 .sorted(Comparator.comparingInt(Animal::getAge))
@@ -87,8 +85,12 @@ public class Main {
         return animals.stream()
                 .allMatch(animal -> animal.getGender().equals("Female") || animal.getGender().equals("Male"));
     }
+    public static boolean task7() {
+        return animals.stream()
+                .noneMatch(animal -> animal.getOrigin().equals("Oceania"));
+    }
 
-    public static int task7() {
+    public static int task8() {
         return animals.stream()
                 .sorted(Comparator.comparing(Animal::getBread))
                 .limit(100)
@@ -96,10 +98,8 @@ public class Main {
                 .max()
                 .orElse(-1);
     }
-//Взять всех животных. Преобразовать их в породы, а породы в []char
-//Вывести в консоль длину самого короткого массива
 
-    public static int task8() {
+    public static int task9() {
         return animals.stream()
                 .map(Animal::getBread)
                 .map(String::toCharArray)
@@ -108,10 +108,6 @@ public class Main {
                 .orElse(-1);
     }
 
-    public static void task9() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
-    }
 
     public static void task10() {
         List<Animal> animals = Util.getAnimals();
