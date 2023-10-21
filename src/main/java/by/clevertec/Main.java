@@ -38,7 +38,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        task9();
+        System.out.println(task10());
     }
 
     public static List<Animal> task1() {
@@ -109,9 +109,10 @@ public class Main {
     }
 
 
-    public static void task10() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+    public static int task10() {
+        return animals.stream()
+                .mapToInt(Animal::getAge)
+                .sum();
     }
 
     public static void task11() {
