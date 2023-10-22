@@ -44,7 +44,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        System.out.println(main.task2());
+        main.task1().forEach(System.out::println);
     }
 
     public List<Animal> task1() {

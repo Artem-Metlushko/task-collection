@@ -2,6 +2,7 @@ package by.clevertec;
 
 import by.clevertec.model.Animal;
 import by.clevertec.util.Util;
+import by.clevertec.util.UtilMock;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-    public static final Main main = new Main(listAnimals());
+    public final Main mainMock = new Main(UtilMock.getAnimals());
 
-    private static List<Animal> listAnimals() {
+    /*private static List<Animal> listAnimals() {
         List<Animal> animals = new ArrayList<>();
         animals.add(new Animal(1, "Baboon, chacma", 43, "Japanese", "Male"));
         animals.add(new Animal(2, "Stork, woolly-necked", 37, "Japanese", "Male"));
@@ -28,46 +29,36 @@ class MainTest {
         animals.add(new Animal(9, "Red-tailed cockatoo", 10, "Afrikaans", "Female"));
         animals.add(new Animal(9, "White-browed owl", 10, "Korean", "Female"));
         return animals;
-    }
+    }*/
 
-    @Test
+   @Test
     void task1() {
-        /*List<Animal> animals = Util.getAnimals();
-        List<Animal> filteredAnimals = new ArrayList<>();
-        for (Animal animal : animals) {
-            if (animal.getAge() >= 10 && animal.getAge() <= 20) {
-                filteredAnimals.add(animal);
-            }
-        }
-        for (int i = 0; i < filteredAnimals.size(); i++) {
-            for (int j = i + 1; j < filteredAnimals.size(); j++) {
-                if (filteredAnimals.get(i).getAge() > filteredAnimals.get(j).getAge()) {
-                    Animal temp = filteredAnimals.get(i);
-                    filteredAnimals.set(i, filteredAnimals.get(j));
-                    filteredAnimals.set(j, temp);
-                }
-            }
-        }
-        List<Animal> expected = new ArrayList<>();
-        for (int i = 14; i < 21; i++) {
-            expected.add(filteredAnimals.get(i));
-        }
+       List<Animal> expected = new ArrayList<>();
+       expected.add(new Animal(4, "White-throated toucan", 18, "Tswana", "Female"));
+       expected.add(new Animal(88, "Long-nosed bandicoot", 18, "Finnish", "Female"));
+       expected.add(new Animal(98, "Western bearded dragon", 18, "Catalan", "Female"));
+       expected.add(new Animal(26, "African wild cat", 19, "Afrikaans", "Female"));
+       expected.add(new Animal(34, "Red-tailed cockatoo", 19, "Dhivehi", "Female"));
+       expected.add(new Animal(64, "Peregrine falcon", 19, "Estonian", "Female"));
+       expected.add(new Animal(80, "King cormorant", 19, "Albanian", "Female"));
 
-        List<Animal> actual = Main.task1();
+       List<Animal> actual = mainMock.task1();
 
-        assertEquals(expected, actual);*/
-
+       assertEquals(expected, actual);
     }
 
     @Test
     void task2() {
-        List<String> expectedList = new ArrayList<>();
-        expectedList.add("BABOON, CHACMA");
-        expectedList.add("STORK, WOOLLY-NECKED");
-        expectedList.add("little cormorant");
-        expectedList.add("ovenbird");
+//       mainMock.task2().forEach(System.out::println);
+        List<String> expected = new ArrayList<>();
+        expected.add("antelope, roan");
+        expected.add("TERN, ARCTIC");
+        expected.add("huron");
+        expected.add("LORIKEET, SCALY-BREASTED");
 
-        assertEquals(expectedList, main.task2());
+        List<String> actual = mainMock.task2();
+
+        assertEquals(expected, actual);
     }
 
     
