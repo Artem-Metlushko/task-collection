@@ -10,11 +10,11 @@ import java.util.List;
 public class UtilMock {
 
     private static final String ANIMALS_DATA_FILE = "src/test/resources/json/animals.json";
-    private static final String RECRUITS_DATA_FILE = "src/main/resources/json/recruits.json";
-    private static final String CARS_DATA_FILE = "src/main/resources/json/cars.json";
-    private static final String FLOWERS_DATA_FILE = "src/main/resources/json/flowers.json";
-    private static final String STUDENTS_DATA_FILE = "src/main/resources/json/students.json";
-    private static final String EXAMINATION_DATA_FILE = "src/main/resources/json/examinations.json";
+    private static final String RECRUITS_DATA_FILE = "src/test/resources/json/recruits.json";
+    private static final String CARS_DATA_FILE = "src/test/resources/json/cars.json";
+    private static final String FLOWERS_DATA_FILE = "src/test/resources/json/flowers.json";
+    private static final String STUDENTS_DATA_FILE = "src/test/resources/json/students.json";
+    private static final String EXAMINATION_DATA_FILE = "src/test/resources/json/examinations.json";
     private static final String BUILDING_TYPE_HOSPITAL = "Hospital";
     private static final String BUILDING_TYPE_OTHER = "Civil building";
 

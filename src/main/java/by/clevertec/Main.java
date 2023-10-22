@@ -9,19 +9,22 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
-import java.util.OptionalDouble;
 
 public class Main {
     public final List<Animal> animals;
+    public final List<Person> persons;
 
-    public Main(List<Animal> animals) {
+    public Main(List<Animal> animals, List<Person> persons) {
         this.animals = animals;
+        this.persons = persons;
     }
 
     public static void main(String[] args) {
-        Main main = new Main(Util.getAnimals());
+        Main main = new Main(Util.getAnimals(), Util.getPersons());
 /*        task1();
         task2();
         task3();
@@ -44,7 +47,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task1().forEach(System.out::println);
+        main.task12();
     }
 
     public List<Animal> task1() {
@@ -122,17 +125,27 @@ public class Main {
                 .sum();
     }
 
-    public OptionalDouble task11() {
+    public double task11() {
         return animals.stream()
                 .filter(animal -> animal.getOrigin().equals("Indonesian"))
                 .mapToInt(Animal::getAge)
-                .average();
+                .average()
+                .orElse(-1);
 
     }
 
-    public void task12() {
-        List<Person> persons = Util.getPersons();
-//        persons.stream() Продолжить ...
+    public List<Person> task12() {
+
+        return persons.stream()
+                .filter(person -> person.getGender().equals("Male"))
+                .filter(person ->
+                        Period.between(person.getDateOfBirth(), LocalDate.now()).getYears() >= 18
+                                && Period.between(person.getDateOfBirth(), LocalDate.now()).getYears() <= 27
+                )
+                .filter(person -> person.getRecruitmentGroup() >= 1 && person.getRecruitmentGroup() <= 3)
+                .sorted(Comparator.comparingInt(Person::getRecruitmentGroup))
+                .limit(200)
+                .toList();
     }
 
     public void task13() {
