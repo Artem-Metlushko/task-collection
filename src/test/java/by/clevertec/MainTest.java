@@ -31,25 +31,24 @@ class MainTest {
         return animals;
     }*/
 
-   @Test
+    @Test
     void task1() {
-       List<Animal> expected = new ArrayList<>();
-       expected.add(new Animal(4, "White-throated toucan", 18, "Tswana", "Female"));
-       expected.add(new Animal(88, "Long-nosed bandicoot", 18, "Finnish", "Female"));
-       expected.add(new Animal(98, "Western bearded dragon", 18, "Catalan", "Female"));
-       expected.add(new Animal(26, "African wild cat", 19, "Afrikaans", "Female"));
-       expected.add(new Animal(34, "Red-tailed cockatoo", 19, "Dhivehi", "Female"));
-       expected.add(new Animal(64, "Peregrine falcon", 19, "Estonian", "Female"));
-       expected.add(new Animal(80, "King cormorant", 19, "Albanian", "Female"));
+        List<Animal> expected = new ArrayList<>();
+        expected.add(new Animal(4, "White-throated toucan", 18, "Tswana", "Female"));
+        expected.add(new Animal(88, "Long-nosed bandicoot", 18, "Finnish", "Female"));
+        expected.add(new Animal(98, "Western bearded dragon", 18, "Catalan", "Female"));
+        expected.add(new Animal(26, "African wild cat", 19, "Afrikaans", "Female"));
+        expected.add(new Animal(34, "Red-tailed cockatoo", 19, "Dhivehi", "Female"));
+        expected.add(new Animal(64, "Peregrine falcon", 19, "Estonian", "Female"));
+        expected.add(new Animal(80, "King cormorant", 19, "Albanian", "Female"));
 
-       List<Animal> actual = mainMock.task1();
+        List<Animal> actual = mainMock.task1();
 
-       assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
     void task2() {
-//       mainMock.task2().forEach(System.out::println);
         List<String> expected = new ArrayList<>();
         expected.add("antelope, roan");
         expected.add("TERN, ARCTIC");
@@ -61,31 +60,40 @@ class MainTest {
         assertEquals(expected, actual);
     }
 
-    
 
     @Test
     void task3() {
-     /*   List<String> expected = new ArrayList<>();
-        for (Animal animal : animals) {
-            if (animal.getAge() > 30 && animal.getOrigin().startsWith("A")
-                    && !expected.contains(animal.getOrigin())
-            ) {
-                expected.add(animal.getOrigin());
-            }
-        }
-        List<String> actual = Main.task3();
-        assertEquals(expected, actual);*/
+        mainMock.task3().forEach(System.out::println);
+        List<String> expected = new ArrayList<>();
+        expected.add("Azeri");
+        expected.add("Aymara");
+        expected.add("Afrikaans");
+        expected.add("Arabic");
+
+        List<String> actual = mainMock.task3();
+
+        assertEquals(expected, actual);
+
+
     }
 
     @Test
     void task4() {
-    /*    int expected = 0;
-        for (Animal animal : animals) {
-            if (animal.getGender().equals("Female")) {
-                expected++;
-            }
-        }
-        Long actual = Main.task4();
-        assertEquals(expected, actual);*/
+        List<Animal> listAnimal = new ArrayList<>();
+        listAnimal.add(new Animal(4, "White-throated toucan", 18, "Tswana", "Female"));
+        listAnimal.add(new Animal(88, "Long-nosed bandicoot", 18, "Finnish", "Male"));
+        listAnimal.add(new Animal(98, "Western bearded dragon", 18, "Catalan", "Female"));
+        listAnimal.add(new Animal(26, "African wild cat", 19, "Afrikaans", "Male"));
+        listAnimal.add(new Animal(34, "Red-tailed cockatoo", 19, "Dhivehi", "Female"));
+        listAnimal.add(new Animal(64, "Peregrine falcon", 19, "Estonian", "Male"));
+
+        Main myMainForTest = new Main(listAnimal);
+
+        Long expectedQuantity = myMainForTest.task4();
+        Long actual = 3L;
+
+        assertEquals(expectedQuantity, actual);
     }
+
+
 }
