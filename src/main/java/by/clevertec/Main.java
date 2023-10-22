@@ -11,11 +11,17 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
 
 public class Main {
-    public static final List<Animal> animals = Util.getAnimals();
+    public final List<Animal> animals;
+
+    public Main(List<Animal> animals) {
+        this.animals = animals;
+    }
 
     public static void main(String[] args) {
+        Main main = new Main(Util.getAnimals());
 /*        task1();
         task2();
         task3();
@@ -38,10 +44,10 @@ public class Main {
         task20();
         task21();
         task22();*/
-        System.out.println(task10());
+        System.out.println(main.task2());
     }
 
-    public static List<Animal> task1() {
+    public List<Animal> task1() {
         return animals.stream()
                 .filter(animal -> animal.getAge() >= 10 && animal.getAge() <= 20)
                 .sorted(Comparator.comparingInt(Animal::getAge))
@@ -50,7 +56,7 @@ public class Main {
                 .toList();
     }
 
-    public static List<String> task2() {
+    public List<String> task2() {
         return animals.stream()
                 .filter(animal -> (animal.getOrigin()).equals("Japanese"))
                 .map(animal -> animal.getGender().equals("Female") ?
@@ -60,7 +66,7 @@ public class Main {
 
     }
 
-    public static List<String> task3() {
+    public List<String> task3() {
         return animals.stream()
                 .filter(animal -> animal.getAge() > 30)
                 .map(Animal::getOrigin)
@@ -69,28 +75,29 @@ public class Main {
                 .toList();
     }
 
-    public static Long task4() {
+    public Long task4() {
         return animals.stream()
                 .filter(animal -> animal.getGender().equals("Female"))
                 .count();
     }
 
-    public static boolean task5() {
+    public boolean task5() {
         return animals.stream()
-                .filter(animal -> animal.getAge()>=20 && animal.getAge() <=30)
+                .filter(animal -> animal.getAge() >= 20 && animal.getAge() <= 30)
                 .anyMatch(animal -> animal.getOrigin().equals("Hungarian"));
     }
 
-    public static boolean task6() {
+    public boolean task6() {
         return animals.stream()
                 .allMatch(animal -> animal.getGender().equals("Female") || animal.getGender().equals("Male"));
     }
-    public static boolean task7() {
+
+    public boolean task7() {
         return animals.stream()
                 .noneMatch(animal -> animal.getOrigin().equals("Oceania"));
     }
 
-    public static int task8() {
+    public int task8() {
         return animals.stream()
                 .sorted(Comparator.comparing(Animal::getBread))
                 .limit(100)
@@ -99,7 +106,7 @@ public class Main {
                 .orElse(-1);
     }
 
-    public static int task9() {
+    public int task9() {
         return animals.stream()
                 .map(Animal::getBread)
                 .map(String::toCharArray)
@@ -109,33 +116,36 @@ public class Main {
     }
 
 
-    public static int task10() {
+    public int task10() {
         return animals.stream()
                 .mapToInt(Animal::getAge)
                 .sum();
     }
 
-    public static void task11() {
-        List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+    public OptionalDouble task11() {
+        return animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Indonesian"))
+                .mapToInt(Animal::getAge)
+                .average();
+
     }
 
-    public static void task12() {
+    public void task12() {
         List<Person> persons = Util.getPersons();
 //        persons.stream() Продолжить ...
     }
 
-    public static void task13() {
+    public void task13() {
         List<House> houses = Util.getHouses();
 //        houses.stream() Продолжить ...
     }
 
-    public static void task14() {
+    public void task14() {
         List<Car> cars = Util.getCars();
 //        cars.stream() Продолжить ...
     }
 
-    public static void task15() {
+    public void task15() {
         List<Flower> flowers = Util.getFlowers();
 //        flowers.stream() Продолжить ...
     }
