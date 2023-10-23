@@ -19,15 +19,21 @@ public class Main {
     public final List<Animal> animals;
     public final List<Person> persons;
     public final List<House> houses;
+    public final List<Student> students;
 
-    public Main(List<Animal> animals, List<Person> persons, List<House> houses) {
+    public Main(List<Animal> animals,
+                List<Person> persons,
+                List<House> houses,
+                List<Student> students) {
         this.animals = animals;
         this.persons = persons;
         this.houses = houses;
+        this.students = students;
     }
 
     public static void main(String[] args) {
-        Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses());
+        Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses(),
+                Util.getStudents());
 /*        task1();
         task2();
         task3();
@@ -50,7 +56,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task13();
+        main.task17();
     }
 
     public List<Animal> task1() {
@@ -177,19 +183,27 @@ public class Main {
 //        flowers.stream() Продолжить ...
     }
 
-    public static void task16() {
-        List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+    public List<Student> task16() {
+
+        return students.stream()
+                .filter(student -> student.getAge() < 18)
+                .sorted(Comparator.comparing(Student::getSurname))
+                .toList();
     }
 
-    public static void task17() {
-        List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+    public List<String> task17() {
+        return students.stream()
+                .map(Student::getFaculty)
+                .distinct()
+                .toList();
     }
 
-    public static void task18() {
+
+
+    public void task18() {
         List<Student> students = Util.getStudents();
         List<Examination> examinations = Util.getExaminations();
+
 //        students.stream() Продолжить ...
     }
 
