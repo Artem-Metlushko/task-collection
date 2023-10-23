@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-    public final Main mainMock = new Main(UtilMock.getAnimals(), UtilMock.getPersons());
-    public final Main mainMockForLittleTest = new Main(getAnimalsForTest(), UtilMock.getPersons());
+    public final Main mainMock = new Main(UtilMock.getAnimals(), UtilMock.getPersons(),Util.getHouses());
+    public final Main mainMockForLittleTest = new Main(getAnimalsForTest(), UtilMock.getPersons(),Util.getHouses());
 
     @Test
     void task1() {

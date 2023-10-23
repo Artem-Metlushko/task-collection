@@ -13,18 +13,21 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Main {
     public final List<Animal> animals;
     public final List<Person> persons;
+    public final List<House> houses;
 
-    public Main(List<Animal> animals, List<Person> persons) {
+    public Main(List<Animal> animals, List<Person> persons, List<House> houses) {
         this.animals = animals;
         this.persons = persons;
+        this.houses = houses;
     }
 
     public static void main(String[] args) {
-        Main main = new Main(Util.getAnimals(), Util.getPersons());
+        Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses());
 /*        task1();
         task2();
         task3();
@@ -47,7 +50,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task12();
+        main.task13();
     }
 
     public List<Animal> task1() {
@@ -148,9 +151,20 @@ public class Main {
                 .toList();
     }
 
-    public void task13() {
-        List<House> houses = Util.getHouses();
-//        houses.stream() Продолжить ...
+    public List<Person> task13() {
+        return houses.stream()
+                .flatMap(house -> Stream.concat(
+                        house.getPersonList().stream()
+                                .filter(person -> house.getBuildingType().equals("Hospital")),
+                        house.getPersonList().stream()
+                                .filter(person -> !house.getBuildingType().equals("Hospital"))
+                                .filter(person -> checkOfYears(person) <= 18 || checkOfYears(person) >= 60)))
+                .limit(500)
+                .toList();
+    }
+
+    private int checkOfYears(Person person) {
+        return LocalDate.now().getYear() - person.getDateOfBirth().getYear();
     }
 
     public void task14() {
