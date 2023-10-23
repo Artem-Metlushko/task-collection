@@ -19,7 +19,7 @@ public class Main {
     public final List<Animal> animals;
     public final List<Person> persons;
     public final List<House> houses;
-    public final List<Student> students ;
+    public final List<Student> students;
 
     public final List<Examination> examinations;
 
@@ -60,7 +60,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task18();
+        main.task19().stream().forEach(System.out::println);
     }
 
     public List<Animal> task1() {
@@ -203,21 +203,27 @@ public class Main {
     }
 
 
-
     public List<Map.Entry<String, Double>> task18() {
-       return students.stream()
-               .limit(10)
-               .collect(Collectors.groupingBy(Student::getFaculty,
-                       Collectors.averagingInt(Student::getAge)))
-               .entrySet().stream()
-               .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-               .toList();
-
-
+        return students.stream()
+                .collect(Collectors.groupingBy(Student::getFaculty,
+                        Collectors.averagingInt(Student::getAge)))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                .toList();
+    }
+    public List<Student> task19() {
+        String group = "Chemistry";
+        return examinations.stream()
+                .filter(e -> e.getExam1() > 4 && e.getExam2() > 4 && e.getExam3() > 4)
+                .map(e -> students.stream()
+                        .filter(s -> s.getId() == e.getStudentId())
+                        .findFirst()
+                        .orElse(null)).filter(Objects::nonNull)
+                .filter(s -> s.getFaculty().equals(group))
+                .toList();
     }
 
-    public void task19() {
-
+    public void task() {
 
     }
 
