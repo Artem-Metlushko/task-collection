@@ -204,26 +204,21 @@ public class Main {
 
 
 
-    public LinkedHashMap<String, Double> task18() {
+    public List<Map.Entry<String, Double>> task18() {
        return students.stream()
-                .collect(Collectors.groupingBy(Student::getFaculty,
-                        Collectors.averagingInt(Student::getAge)))
-                .entrySet().stream()
-                .sorted(Map.Entry.<String, Double>comparingByValue(Comparator.reverseOrder()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-
-//        result.forEach((faculty, averageAge) -> System.out.println(faculty + ": " + averageAge));
+               .limit(10)
+               .collect(Collectors.groupingBy(Student::getFaculty,
+                       Collectors.averagingInt(Student::getAge)))
+               .entrySet().stream()
+               .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+               .toList();
 
 
-
-
-//        students.stream() Продолжить ...
     }
 
-    public static void task19() {
-        List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+    public void task19() {
+
+
     }
 
     public static void task20() {
