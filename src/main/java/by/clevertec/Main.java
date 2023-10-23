@@ -11,29 +11,33 @@ import by.clevertec.util.Util;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
     public final List<Animal> animals;
     public final List<Person> persons;
     public final List<House> houses;
-    public final List<Student> students;
+    public final List<Student> students ;
+
+    public final List<Examination> examinations;
 
     public Main(List<Animal> animals,
                 List<Person> persons,
                 List<House> houses,
-                List<Student> students) {
+                List<Student> students,
+                List<Examination> examinations) {
         this.animals = animals;
         this.persons = persons;
         this.houses = houses;
         this.students = students;
+        this.examinations = examinations;
     }
 
     public static void main(String[] args) {
         Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses(),
-                Util.getStudents());
+                Util.getStudents(), Util.getExaminations());
 /*        task1();
         task2();
         task3();
@@ -56,7 +60,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task17();
+        main.task18();
     }
 
     public List<Animal> task1() {
@@ -200,9 +204,19 @@ public class Main {
 
 
 
-    public void task18() {
-        List<Student> students = Util.getStudents();
-        List<Examination> examinations = Util.getExaminations();
+    public LinkedHashMap<String, Double> task18() {
+       return students.stream()
+                .collect(Collectors.groupingBy(Student::getFaculty,
+                        Collectors.averagingInt(Student::getAge)))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+//        result.forEach((faculty, averageAge) -> System.out.println(faculty + ": " + averageAge));
+
+
+
 
 //        students.stream() Продолжить ...
     }
