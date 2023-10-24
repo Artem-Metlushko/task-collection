@@ -12,8 +12,12 @@ import by.clevertec.util.Util;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.averagingInt;
+import static java.util.stream.Collectors.groupingBy;
 
 public class Main {
     public final List<Animal> animals;
@@ -60,7 +64,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task19().stream().forEach(System.out::println);
+        main.task();
     }
 
     public List<Animal> task1() {
@@ -205,12 +209,13 @@ public class Main {
 
     public List<Map.Entry<String, Double>> task18() {
         return students.stream()
-                .collect(Collectors.groupingBy(Student::getFaculty,
-                        Collectors.averagingInt(Student::getAge)))
+                .collect(groupingBy(Student::getFaculty,
+                        averagingInt(Student::getAge)))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                 .toList();
     }
+
     public List<Student> task19() {
         String group = "Chemistry";
         return examinations.stream()
@@ -223,13 +228,26 @@ public class Main {
                 .toList();
     }
 
-    public void task() {
-
+    public Double task20() {
+       return   examinations.stream()
+                .collect(groupingBy(getExaminationWithFaculty(),
+                        Collectors.averagingDouble(Examination::getExam1)))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .orElse(Map.entry("", 0.0)).getValue();
     }
 
-    public static void task20() {
-        List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+    private Function<Examination, String> getExaminationWithFaculty() {
+        return examination -> students.stream()
+                .filter(student -> student.getId() == examination.getStudentId())
+                .findFirst()
+                .orElse(new Student())
+                .getFaculty();
+    }
+
+    public static void task() {
+
+
     }
 
     public static void task21() {
