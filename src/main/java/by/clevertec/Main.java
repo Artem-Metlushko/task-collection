@@ -64,7 +64,8 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task();
+        System.out.println(main.task13().size());
+//        main.task13().forEach(System.out::println);
     }
 
     public List<Animal> task1() {
@@ -155,14 +156,15 @@ public class Main {
 
         return persons.stream()
                 .filter(person -> person.getGender().equals("Male"))
-                .filter(person ->
-                        Period.between(person.getDateOfBirth(), LocalDate.now()).getYears() >= 18
-                                && Period.between(person.getDateOfBirth(), LocalDate.now()).getYears() <= 27
-                )
+                .filter(person -> numberOfYears(person) >= 18 && numberOfYears(person) <= 27)
                 .filter(person -> person.getRecruitmentGroup() >= 1 && person.getRecruitmentGroup() <= 3)
                 .sorted(Comparator.comparingInt(Person::getRecruitmentGroup))
                 .limit(200)
                 .toList();
+    }
+
+    private int numberOfYears(Person person) {
+        return Period.between(person.getDateOfBirth(), LocalDate.now()).getYears();
     }
 
     public List<Person> task13() {
@@ -172,13 +174,9 @@ public class Main {
                                 .filter(person -> house.getBuildingType().equals("Hospital")),
                         house.getPersonList().stream()
                                 .filter(person -> !house.getBuildingType().equals("Hospital"))
-                                .filter(person -> checkOfYears(person) <= 18 || checkOfYears(person) >= 60)))
+                                .filter(person -> numberOfYears(person) <= 18 || numberOfYears(person) >= 60)))
                 .limit(500)
                 .toList();
-    }
-
-    private int checkOfYears(Person person) {
-        return LocalDate.now().getYear() - person.getDateOfBirth().getYear();
     }
 
     public void task14() {
@@ -245,10 +243,10 @@ public class Main {
                 .getFaculty();
     }
 
-    public static void task() {
+    /*public  void task() {
 
 
-    }
+    }*/
 
     public static void task21() {
         List<Student> students = Util.getStudents();
