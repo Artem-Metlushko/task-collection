@@ -16,8 +16,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.averagingInt;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 
 public class Main {
     public final List<Animal> animals;
@@ -64,7 +63,8 @@ public class Main {
         task20();
         task21();
         task22();*/
-        System.out.println(main.task13().size());
+        main.task().entrySet().forEach(System.out::println);
+//        System.out.println(main.task());
 //        main.task13().forEach(System.out::println);
     }
 
@@ -227,7 +227,7 @@ public class Main {
     }
 
     public Double task20() {
-       return   examinations.stream()
+        return examinations.stream()
                 .collect(groupingBy(getExaminationWithFaculty(),
                         Collectors.averagingDouble(Examination::getExam1)))
                 .entrySet().stream()
@@ -243,18 +243,17 @@ public class Main {
                 .getFaculty();
     }
 
-    /*public  void task() {
+    public List<Map.Entry<String, Long>> task21() {
+        return students.stream()
+                .collect(groupingBy(Student::getGroup, counting()))
+                .entrySet().stream().toList();
 
-
-    }*/
-
-    public static void task21() {
-        List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
     }
 
-    public static void task22() {
-        List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+    public Map<String, Integer> task22() {
+        return students.stream()
+                .collect(groupingBy(Student::getFaculty, mapping(Student::getAge, minBy(Comparator.naturalOrder()))))
+                .entrySet().stream()
+                .collect(toMap(Map.Entry::getKey,e -> e.getValue().orElse(0)));
     }
 }
