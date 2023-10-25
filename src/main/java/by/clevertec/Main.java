@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -23,24 +23,25 @@ public class Main {
     public final List<Person> persons;
     public final List<House> houses;
     public final List<Student> students;
-
     public final List<Examination> examinations;
+    public final List<Flower> flowers;
 
     public Main(List<Animal> animals,
                 List<Person> persons,
                 List<House> houses,
                 List<Student> students,
-                List<Examination> examinations) {
+                List<Examination> examinations, List<Flower> flowers
+    ) {
         this.animals = animals;
         this.persons = persons;
         this.houses = houses;
         this.students = students;
         this.examinations = examinations;
+        this.flowers = flowers;
     }
 
     public static void main(String[] args) {
-        Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses(),
-                Util.getStudents(), Util.getExaminations());
+        Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses(), Util.getStudents(), Util.getExaminations(), Util.getFlowers());
 /*        task1();
         task2();
         task3();
@@ -63,7 +64,7 @@ public class Main {
         task20();
         task21();
         task22();*/
-        main.task().entrySet().forEach(System.out::println);
+        main.task15();
 //        System.out.println(main.task());
 //        main.task13().forEach(System.out::println);
     }
@@ -184,10 +185,43 @@ public class Main {
 //        cars.stream() Продолжить ...
     }
 
-    public void task15() {
-        List<Flower> flowers = Util.getFlowers();
-//        flowers.stream() Продолжить ...
+
+    public double task15() {
+        return flowers.stream()
+                .filter(getStartWith())
+                .filter(getMaterial())
+                .sorted(getHardSorted())
+                .mapToDouble(flower -> flower.getPrice() + flower.getWaterConsumptionPerDay() * 365 * 5 * 1.39)
+                .sum();
     }
+
+    private Predicate<Flower> getMaterial() {
+        return flower -> flower.getFlowerVaseMaterial().contains("Glass") ||
+                flower.getFlowerVaseMaterial().contains("Aluminum") ||
+                flower.getFlowerVaseMaterial().contains("Steel");
+    }
+
+    private Predicate<Flower> getStartWith() {
+        return flower ->
+                flower.getCommonName().startsWith("S") ||
+                        flower.getCommonName().startsWith("T") ||
+                        flower.getCommonName().startsWith("U") ||
+                        flower.getCommonName().startsWith("V") ||
+                        flower.getCommonName().startsWith("W") ||
+                        flower.getCommonName().startsWith("X") ||
+                        flower.getCommonName().startsWith("Y") ||
+                        flower.getCommonName().startsWith("Z") ||
+                        flower.getCommonName().startsWith("A") ||
+                        flower.getCommonName().startsWith("B") ||
+                        flower.getCommonName().startsWith("C");
+    }
+
+    private Comparator<Flower> getHardSorted() {
+        return Comparator.comparing(Flower::getOrigin).reversed()
+                .thenComparing(Comparator.comparing(Flower::getPrice).reversed()
+                        .thenComparing(Comparator.comparing(Flower::getWaterConsumptionPerDay).reversed()));
+    }
+
 
     public List<Student> task16() {
 
@@ -229,7 +263,7 @@ public class Main {
     public Double task20() {
         return examinations.stream()
                 .collect(groupingBy(getExaminationWithFaculty(),
-                        Collectors.averagingDouble(Examination::getExam1)))
+                        averagingDouble(Examination::getExam1)))
                 .entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .orElse(Map.entry("", 0.0)).getValue();
@@ -254,6 +288,6 @@ public class Main {
         return students.stream()
                 .collect(groupingBy(Student::getFaculty, mapping(Student::getAge, minBy(Comparator.naturalOrder()))))
                 .entrySet().stream()
-                .collect(toMap(Map.Entry::getKey,e -> e.getValue().orElse(0)));
+                .collect(toMap(Map.Entry::getKey, e -> e.getValue().orElse(0)));
     }
 }
