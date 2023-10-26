@@ -14,6 +14,7 @@ import java.time.Period;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -25,48 +26,48 @@ public class Main {
     public final List<Student> students;
     public final List<Examination> examinations;
     public final List<Flower> flowers;
+    public final List<Car> cars;
 
     public Main(List<Animal> animals,
                 List<Person> persons,
                 List<House> houses,
                 List<Student> students,
-                List<Examination> examinations, List<Flower> flowers
-    ) {
+                List<Examination> examinations, List<Flower> flowers,
+                List<Car> cars) {
         this.animals = animals;
         this.persons = persons;
         this.houses = houses;
         this.students = students;
         this.examinations = examinations;
         this.flowers = flowers;
+        this.cars = cars;
     }
 
     public static void main(String[] args) {
-        Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses(), Util.getStudents(), Util.getExaminations(), Util.getFlowers());
-/*        task1();
-        task2();
-        task3();
-        task4();
-        task5();
-        task6();
-        task7();
-        task8();
-        task9();
-        task10();
-        task11();
-        task12();
-        task13();
-        task14();
-        task15();
-        task16();
-        task17();
-        task18();
-        task19();
-        task20();
-        task21();
-        task22();*/
+        Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses(), Util.getStudents(), Util.getExaminations(), Util.getFlowers(), Util.getCars());
+        main.task1();
+        main.task2();
+        main.task3();
+        main.task4();
+        main.task5();
+        main.task6();
+        main.task7();
+        main.task8();
+        main.task9();
+        main.task10();
+        main.task11();
+        main.task12();
+        main.task13();
+        main.task14();
         main.task15();
-//        System.out.println(main.task());
-//        main.task13().forEach(System.out::println);
+        main.task16();
+        main.task17();
+        main.task18();
+        main.task19();
+        main.task20();
+        main.task21();
+        main.task22();
+        main.task14();
     }
 
     public List<Animal> task1() {
@@ -154,7 +155,6 @@ public class Main {
     }
 
     public List<Person> task12() {
-
         return persons.stream()
                 .filter(person -> person.getGender().equals("Male"))
                 .filter(person -> numberOfYears(person) >= 18 && numberOfYears(person) <= 27)
@@ -180,9 +180,92 @@ public class Main {
                 .toList();
     }
 
+
     public void task14() {
-        List<Car> cars = Util.getCars();
-//        cars.stream() Продолжить ...
+
+        System.out.println(Stream.of(cars.stream()
+                                .filter(isFirstPredicate())
+                                .collect(groupingBy(car -> "Туркменистан", summingInt(Car::getMass))),
+                        cars.stream()
+                                .filter(isFirstPredicate().negate())
+                                .filter(isSecondPredicate())
+                                .collect(groupingBy(car -> "Узбекистан", summingInt(Car::getMass))),
+                        cars.stream()
+                                .filter(isFirstPredicate().negate())
+                                .filter(isSecondPredicate().negate())
+                                .filter(isThirdPredicate())
+                                .collect(groupingBy(car -> "Казахстан", summingInt(Car::getMass))),
+                        cars.stream()
+                                .filter(isFirstPredicate().negate())
+                                .filter(isSecondPredicate().negate())
+                                .filter(isThirdPredicate().negate())
+                                .filter(isFourPredicate())
+                                .collect(groupingBy(car -> "Кыргызстан", summingInt(Car::getMass))),
+                        cars.stream()
+                                .filter(isFirstPredicate().negate())
+                                .filter(isSecondPredicate().negate())
+                                .filter(isThirdPredicate().negate())
+                                .filter(isFourPredicate().negate())
+                                .filter(isFivePredicate())
+                                .collect(groupingBy(car -> "Россия", summingInt(Car::getMass))),
+                        cars.stream()
+                                .filter(isFirstPredicate().negate())
+                                .filter(isSecondPredicate().negate())
+                                .filter(isThirdPredicate().negate())
+                                .filter(isFourPredicate().negate())
+                                .filter(isFivePredicate().negate())
+                                .filter(isSixPredicate())
+                                .collect(groupingBy(car -> "Монголия", summingInt(Car::getMass)))
+
+                )
+                .map(map -> map.entrySet().stream()
+                        .collect(toMap(Map.Entry::getKey,
+                                e -> e.getValue() / 1000.0 * 7.14)))
+                .peek(System.out::println)
+                .flatMap(map -> map.values().stream())
+                .mapToDouble(Double::doubleValue)
+                .sum());
+//
+
+    }
+
+    private Predicate<Car> isFirstPredicate() {
+        return c -> (c.getCarMake().equals("Jaguar") ||
+                c.getColor().equals("White"));
+    }
+
+
+    private Predicate<Car> isSecondPredicate() {
+        return car -> car.getMass() <= 1500 && (car.getCarMake().equals("BMW") ||
+                car.getCarMake().equals("Lexus") ||
+                car.getCarMake().equals("Chrysler") ||
+                car.getCarMake().equals("Toyota"));
+    }
+
+
+    private Predicate<Car> isThirdPredicate() {
+        return car -> (car.getColor().equals("Black") &&
+                car.getMass() > 4000) ||
+                car.getCarMake().equals("GMC") ||
+                car.getCarMake().equals("Dodge");
+    }
+
+
+    private Predicate<Car> isFourPredicate() {
+        return car -> (car.getReleaseYear() <= 1982) ||
+                car.getCarModel().equals("Civic") ||
+                car.getCarModel().equals("Cherokee");
+    }
+
+    private Predicate<Car> isSixPredicate() {
+        return car -> car.getVin().contains("59");
+    }
+
+    private Predicate<Car> isFivePredicate() {
+        return car -> !(car.getColor().equals("Yellow") ||
+                car.getColor().equals("Red") ||
+                car.getColor().equals("Green") ||
+                car.getColor().equals("Blue")) || car.getPrice() > 40000;
     }
 
 
