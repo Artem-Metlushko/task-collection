@@ -45,29 +45,28 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main(Util.getAnimals(), Util.getPersons(), Util.getHouses(), Util.getStudents(), Util.getExaminations(), Util.getFlowers(), Util.getCars());
-        main.task1();
-        main.task2();
-        main.task3();
-        main.task4();
-        main.task5();
-        main.task6();
-        main.task7();
-        main.task8();
-        main.task9();
-        main.task10();
-        main.task11();
-        main.task12();
-        main.task13();
+//        main.task1().forEach(System.out::println);
+//        main.task2().forEach(System.out::println);
+//        main.task3().forEach(System.out::println);
+//        System.out.println(main.task4());
+//        System.out.println(main.task5());
+//        System.out.println(main.task6());
+//        System.out.println(main.task7());
+//        System.out.println(main.task8());
+//        System.out.println(main.task9());
+//        System.out.println(main.task10());
+//        System.out.println(main.task11());
+//        main.task12().forEach(System.out::println);
+//        main.task13().forEach(System.out::println);
         main.task14();
-        main.task15();
-        main.task16();
-        main.task17();
-        main.task18();
-        main.task19();
-        main.task20();
-        main.task21();
-        main.task22();
-        main.task14();
+//        System.out.println(main.task15());
+//        main.task16().forEach(System.out::println);
+//        main.task17().forEach(System.out::println);
+//        main.task18().forEach(System.out::println);
+//        main.task19().forEach(System.out::println);
+//        System.out.println(main.task20());
+//        main.task21().forEach(System.out::println);
+//        main.task22().entrySet().forEach(System.out::println);;
     }
 
     public List<Animal> task1() {
@@ -185,29 +184,29 @@ public class Main {
 
         System.out.println(Stream.of(cars.stream()
                                 .filter(isFirstPredicate())
-                                .collect(groupingBy(car -> "Туркменистан", summingInt(Car::getMass))),
+                                .collect(groupingBy(car -> "Turkmenistan", summingInt(Car::getMass))),
                         cars.stream()
                                 .filter(isFirstPredicate().negate())
                                 .filter(isSecondPredicate())
-                                .collect(groupingBy(car -> "Узбекистан", summingInt(Car::getMass))),
+                                .collect(groupingBy(car -> "Uzbekistan", summingInt(Car::getMass))),
                         cars.stream()
                                 .filter(isFirstPredicate().negate())
                                 .filter(isSecondPredicate().negate())
                                 .filter(isThirdPredicate())
-                                .collect(groupingBy(car -> "Казахстан", summingInt(Car::getMass))),
+                                .collect(groupingBy(car -> "Kazakhstan", summingInt(Car::getMass))),
                         cars.stream()
                                 .filter(isFirstPredicate().negate())
                                 .filter(isSecondPredicate().negate())
                                 .filter(isThirdPredicate().negate())
                                 .filter(isFourPredicate())
-                                .collect(groupingBy(car -> "Кыргызстан", summingInt(Car::getMass))),
+                                .collect(groupingBy(car -> "Kyrgyzstan", summingInt(Car::getMass))),
                         cars.stream()
                                 .filter(isFirstPredicate().negate())
                                 .filter(isSecondPredicate().negate())
                                 .filter(isThirdPredicate().negate())
                                 .filter(isFourPredicate().negate())
                                 .filter(isFivePredicate())
-                                .collect(groupingBy(car -> "Россия", summingInt(Car::getMass))),
+                                .collect(groupingBy(car -> "Russia", summingInt(Car::getMass))),
                         cars.stream()
                                 .filter(isFirstPredicate().negate())
                                 .filter(isSecondPredicate().negate())
@@ -215,7 +214,7 @@ public class Main {
                                 .filter(isFourPredicate().negate())
                                 .filter(isFivePredicate().negate())
                                 .filter(isSixPredicate())
-                                .collect(groupingBy(car -> "Монголия", summingInt(Car::getMass)))
+                                .collect(groupingBy(car -> "Mongolia", summingInt(Car::getMass)))
 
                 )
                 .map(map -> map.entrySet().stream()
@@ -225,8 +224,6 @@ public class Main {
                 .flatMap(map -> map.values().stream())
                 .mapToDouble(Double::doubleValue)
                 .sum());
-//
-
     }
 
     private Predicate<Car> isFirstPredicate() {
